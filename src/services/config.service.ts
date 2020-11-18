@@ -4,15 +4,7 @@ require('dotenv').config();
 
 class ConfigService {
 
-  constructor(private env: { [k: string]: string | undefined }) { }
-
-  private getValue(key: string, throwOnMissing = true): string {
-    const value = this.env[key];
-    if (!value && throwOnMissing) {
-      throw new Error(`config error - missing env.${key}`);
-    }
-
-    return value;
+  constructor(private env: { [k: string]: string | undefined }) {
   }
 
   public ensureValues(keys: string[]) {
@@ -24,9 +16,24 @@ class ConfigService {
     return this.getValue('PORT', true);
   }
 
-  public isProduction() {
+  public isProduction(): boolean {
     const mode = this.getValue('MODE', false);
     return mode != 'DEV';
+  }
+
+  public getEntitySource(): string {
+    return this.isProduction() ? 'dist/**/*.entity.js' : '**/*.entity{.ts,.js}';
+  }
+
+  public getExtraConfig(): any {
+    if (this.isProduction()) {
+      return {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      };
+    }
+    return {};
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
@@ -35,8 +42,8 @@ class ConfigService {
 
       url: this.getValue('DATABASE_URL'),
 
-      entities: ['**/*.entity{.ts,.js}', 'dist/**/*.entity.js'],
-      logging: "all",
+      entities: [this.getEntitySource()],
+      logging: 'all',
 
       migrationsTableName: 'migration',
 
@@ -47,19 +54,24 @@ class ConfigService {
       },
 
       ssl: this.isProduction(),
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }
+      extra: this.getExtraConfig(),
     };
+  }
+
+  private getValue(key: string, throwOnMissing = true): string {
+    const value = this.env[key];
+    if (!value && throwOnMissing) {
+      throw new Error(`config error - missing env.${key}`);
+    }
+
+    return value;
   }
 
 }
 
 const configService = new ConfigService(process.env)
   .ensureValues([
-    'DATABASE_URL'
+    'DATABASE_URL',
   ]);
 
 export { configService };
