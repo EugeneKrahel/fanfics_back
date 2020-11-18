@@ -1,2 +1,1 @@
-migration: npm run typeorm:migration:run
-web: npm run start:prod
+web: npm run typeorm:migration:run && npm run start:prod
