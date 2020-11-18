@@ -26,7 +26,7 @@ class ConfigService {
   }
 
   public getMigrationSource(): string {
-    return this.isProduction() ? 'dist/**/*.js' : 'src/migration/*.ts';
+    return this.isProduction() ? 'dist/migration/*.js' : 'src/migration/*.ts';
   }
 
   public getExtraConfig(): any {
