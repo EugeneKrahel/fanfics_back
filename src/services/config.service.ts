@@ -25,6 +25,10 @@ class ConfigService {
     return this.isProduction() ? 'dist/**/*.entity.js' : '**/*.entity{.ts,.js}';
   }
 
+  public getMigrationSource(): string {
+    return this.isProduction() ? 'dist/**/*.js' : 'src/migration/*.ts';
+  }
+
   public getExtraConfig(): any {
     if (this.isProduction()) {
       return {
@@ -47,7 +51,8 @@ class ConfigService {
 
       migrationsTableName: 'migration',
 
-      migrations: ['src/migration/*.ts'],
+      migrations: [this.getMigrationSource()],
+      migrationsRun: true,
 
       cli: {
         migrationsDir: 'src/migration',
