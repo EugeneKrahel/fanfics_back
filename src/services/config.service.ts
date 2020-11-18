@@ -35,7 +35,7 @@ class ConfigService {
 
       url: this.getValue('DATABASE_URL'),
 
-      entities: ['**/*.entity{.ts,.js}'],
+      entities: ['**/*.entity{.ts,.js}', 'dist/**/*.entity.js'],
       logging: "all",
 
       migrationsTableName: 'migration',
