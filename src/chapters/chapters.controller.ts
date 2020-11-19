@@ -1,8 +1,6 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ChaptersService } from './chapters.service';
 import { ChapterDto } from '../dto/chapter.dto';
-import { FanficDto } from '../dto/fanfic.dto';
-import { FanficConverter } from '../converters/fanfic.converter';
 import { ChapterConverter } from '../converters/chapter.converter';
 
 @Controller('chapters')
@@ -19,6 +17,11 @@ export class ChaptersController {
   @Post()
   public async save(@Body() dto: ChapterDto): Promise<ChapterDto> {
     return await this.service.save(dto);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: number, @Body() dto: ChapterDto) {
+    return this.service.update(id, dto);
   }
 
   @Get('search/id')

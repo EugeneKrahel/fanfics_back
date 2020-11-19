@@ -6,7 +6,6 @@ import { ChapterDto } from '../dto/chapter.dto';
 import { Chapter } from '../models/chapter.entity';
 import { FanficsService } from '../fanfics/fanfics.service';
 import { FanficConverter } from '../converters/fanfic.converter';
-import { FanficDto } from '../dto/fanfic.dto';
 
 @Injectable()
 export class ChaptersService {
@@ -24,6 +23,13 @@ export class ChaptersService {
     entity.fanfic = FanficConverter.toEntity(await this.fanficsService.findById(dto.fanficId));
     console.log(entity);
     return await this.repo.save(entity)
+      .then(chapter => ChapterConverter.toDto(chapter));
+  }
+
+  public async update(id: number, dto: ChapterDto): Promise<ChapterDto | null> {
+
+    await this.repo.update(id, dto);
+    return await this.repo.findOne(id)
       .then(chapter => ChapterConverter.toDto(chapter));
   }
 
