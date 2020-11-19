@@ -19,7 +19,7 @@ export class ChaptersController {
     return await this.service.save(dto);
   }
 
-  @Put('update/id')
+  @Put('update/:id')
   update(@Param('id') id: number, @Body() dto: ChapterDto) {
     return this.service.update(id, dto);
   }
