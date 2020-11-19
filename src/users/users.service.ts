@@ -6,6 +6,8 @@ import { UserConverter } from '../converters/user.converter';
 import { Repository } from 'typeorm';
 import { Role } from '../models/enums/role.enum';
 import { UserNoPassDto } from '../dto/userNoPass.dto';
+import { FanficDto } from '../dto/fanfic.dto';
+import { FanficConverter } from '../converters/fanfic.converter';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +27,11 @@ export class UsersService {
 
   public async findById(id: number): Promise<User | undefined> {
     return await this.repo.findOne({ where: { id } });
+  }
+
+  public async findByUserId(id: number): Promise<UserNoPassDto | undefined> {
+    return await this.repo.findOne({ where: { id } })
+      .then(user => UserConverter.toDtoNoPass(user));
   }
 
   public async save(dto: UserDto): Promise<UserDto> {
