@@ -8,6 +8,7 @@ import { LoginModule } from './login/login.module';
 import { TagsModule } from './tags/tags.module';
 import { FanficsModule } from './fanfics/fanfics.module';
 import { ChaptersModule } from './chapters/chapters.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { ChaptersModule } from './chapters/chapters.module';
     LoginModule,
     FanficsModule,
     TagsModule,
-    ChaptersModule
+    ChaptersModule,
+    CommentsModule
   ],
   controllers: [AppController],
   providers: [AppService],

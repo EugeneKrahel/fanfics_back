@@ -22,8 +22,10 @@ export class CommentsService {
 
   public async save(dto: CommentDto, userId: number): Promise<CommentDto> {
     const entity = CommentConverter.toEntity(dto);
+
     entity.author = await this.usersService.findById(userId);
     entity.fanfic = FanficConverter.toEntity(await this.fanficsService.findById(dto.fanficId));
+    entity.date = Date.now();
     console.log(entity);
     return await this.repo.save(entity)
       .then(comment => CommentConverter.toDto(comment));

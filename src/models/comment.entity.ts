@@ -10,6 +10,8 @@ export class Comment {
   author: User;
   @Column({ type: 'text' })
   content: string;
+  @Column({ type: 'timestamp' })
+  date: number;
   @ManyToOne(type => Fanfic, fanfic => fanfic.comments, {onDelete: 'CASCADE', cascade: ['insert', 'update', 'recover'], eager: true })
   fanfic: Fanfic;
 }
