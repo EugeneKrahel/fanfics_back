@@ -4,6 +4,6 @@ export class CommentDto {
   id: number;
   author: UserNoPassDto;
   content: string;
-  date: number;
+  date: Date;
   fanficId: number;
 }

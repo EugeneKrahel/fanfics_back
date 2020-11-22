@@ -26,6 +26,7 @@
     "typeorm:migration:run": "npm run typeorm -- migration:run"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.5.1",
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/jwt": "^7.1.0",
@@ -34,6 +35,8 @@
     "@nestjs/typeorm": "^7.1.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "handlebars": "^4.7.6",
+    "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

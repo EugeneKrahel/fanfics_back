@@ -25,7 +25,8 @@ export class CommentsService {
 
     entity.author = await this.usersService.findById(userId);
     entity.fanfic = FanficConverter.toEntity(await this.fanficsService.findById(dto.fanficId));
-    entity.date = Date.now();
+    console.log(Date.now());
+    entity.date = new Date();
     console.log(entity);
     return await this.repo.save(entity)
       .then(comment => CommentConverter.toDto(comment));

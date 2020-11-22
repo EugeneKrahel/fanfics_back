@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Fanfic } from './fanfic.entity';
 import { User } from './user.entity';
 
@@ -10,8 +10,8 @@ export class Comment {
   author: User;
   @Column({ type: 'text' })
   content: string;
-  @Column({ type: 'timestamp' })
-  date: number;
+  @Column({type: 'timestamptz', default: () => 'LOCALTIMESTAMP' })
+  date: Date;
   @ManyToOne(type => Fanfic, fanfic => fanfic.comments, {onDelete: 'CASCADE', cascade: ['insert', 'update', 'recover'], eager: true })
   fanfic: Fanfic;
 }
