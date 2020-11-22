@@ -8,6 +8,7 @@ export class UserDto {
   email: string;
   password: string;
   role: Role;
+  key: string;
   fanfics: Fanfic[];
   comments: Comment[];
 }

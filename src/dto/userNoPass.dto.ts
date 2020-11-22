@@ -7,6 +7,7 @@ export class UserNoPassDto {
   username: string;
   email: string;
   role: Role;
+  key: string;
   fanfics: Fanfic[];
   comments: Comment[];
 }

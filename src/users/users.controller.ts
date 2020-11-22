@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from '../dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserNoPassDto } from '../dto/userNoPass.dto';
-import { FanficDto } from '../dto/fanfic.dto';
+import { ChapterDto } from '../dto/chapter.dto';
 
 @Controller('users')
 export class UsersController {
@@ -22,10 +22,20 @@ export class UsersController {
     return await this.service.findByUserId(params.id);
   }
 
+  @Get('search/email')
+  public async findByUserEmail(@Query() params): Promise<UserNoPassDto> {
+    return await this.service.findByUserEmail(params.email);
+  }
+
   @Post()
   public async save(@Body() dto: UserDto): Promise<UserDto> {
     console.log(dto);
     return await this.service.save(dto);
+  }
+
+  @Put('update/:id')
+  update(@Param('id') id: number, @Body() dto: UserNoPassDto) {
+    return this.service.update(id, dto);
   }
 
   @Delete()

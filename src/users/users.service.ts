@@ -6,13 +6,14 @@ import { UserConverter } from '../converters/user.converter';
 import { Repository } from 'typeorm';
 import { Role } from '../models/enums/role.enum';
 import { UserNoPassDto } from '../dto/userNoPass.dto';
-import { FanficDto } from '../dto/fanfic.dto';
-import { FanficConverter } from '../converters/fanfic.converter';
+import { MailService } from '../services/mail.service';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
 
-  constructor(@InjectRepository(User) private readonly repo: Repository<User>) {
+  constructor(@InjectRepository(User) private readonly repo: Repository<User>,
+              private mailService: MailService) {
   }
 
   public async getAll(): Promise<UserNoPassDto[]> {
@@ -34,10 +35,23 @@ export class UsersService {
       .then(user => UserConverter.toDtoNoPass(user));
   }
 
+  public async findByUserEmail(email: string): Promise<UserNoPassDto | undefined> {
+    return await this.repo.findOne({ where: { email } })
+      .then(user => UserConverter.toDtoNoPass(user));
+  }
+
   public async save(dto: UserDto): Promise<UserDto> {
     const user: User = UserConverter.toEntity(dto);
+    user.key = await bcrypt.hash(user.password, 5);
+    this.mailService.sendmessage(user.email, user.key);
     user.role = Role.USER;
     return await this.repo.save(user)
+      .then(user => UserConverter.toDto(user));
+  }
+
+  public async update(id: number, dto: UserNoPassDto): Promise<UserNoPassDto | null> {
+    await this.repo.update(id, dto);
+    return await this.repo.findOne(id)
       .then(user => UserConverter.toDto(user));
   }
 

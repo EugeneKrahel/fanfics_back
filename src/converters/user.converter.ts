@@ -10,6 +10,7 @@ export class UserConverter {
     user.username = dto.username;
     user.email = dto.email;
     user.password = dto.password;
+    user.key = dto.key;
     user.role = dto.role;
     return user;
   };
@@ -20,6 +21,7 @@ export class UserConverter {
     dto.username = user.username;
     dto.email = user.email;
     dto.password = user.password;
+    dto.key = user.key;
     dto.role = user.role;
     return dto;
   }
@@ -29,6 +31,7 @@ export class UserConverter {
     dto.id = user.id;
     dto.username = user.username;
     dto.email = user.email;
+    dto.key = user.key;
     dto.role = user.role;
     return dto;
   }
