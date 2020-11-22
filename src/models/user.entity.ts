@@ -2,6 +2,7 @@ import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 
 import { Role } from './enums/role.enum';
 import * as bcrypt from 'bcryptjs';
 import { Fanfic } from './fanfic.entity';
+import { Comment } from './comment.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -17,6 +18,8 @@ export class User {
   role: Role;
   @OneToMany(type => Fanfic, fanfic => fanfic.author, { cascade: ['insert', 'update', 'recover']})
   fanfics: Fanfic[];
+  @OneToMany(type => Comment, comment => comment.author, { cascade: ['insert', 'update', 'recover']})
+  comments: Comment[];
 
   @BeforeInsert()
   async hashPassword() {

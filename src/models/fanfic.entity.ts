@@ -3,6 +3,7 @@ import { User } from './user.entity';
 import { Tag } from './tag.entity';
 import { Genre } from './enums/genre.enum';
 import { Chapter } from './chapter.entity';
+import { Comment } from './comment.entity';
 
 @Entity({ name: 'fanfic' })
 export class Fanfic {
@@ -16,6 +17,8 @@ export class Fanfic {
   genre: Genre;
   @OneToMany(type => Chapter, chapter => chapter.fanfic, { cascade: ['insert', 'update', 'recover', 'remove'] })
   chapters: Chapter[];
+  @OneToMany(type => Comment, comment => comment.fanfic, { cascade: ['insert', 'update', 'recover', 'remove'] })
+  comments: Comment[];
   @ManyToMany(type => Tag, { cascade: ['insert', 'update', 'recover'], eager: true, onDelete: 'CASCADE' })
   @JoinTable({
     name: 'fanfics_tags',

@@ -30,7 +30,7 @@ export class ChaptersController {
   }
 
   @Get('search/fanfic')
-  public async findByAuthorID(@Query() params): Promise<ChapterDto[]> {
+  public async findByFanfic(@Query() params): Promise<ChapterDto[]> {
     return await this.service.findByFanfic(params.id)
       .then(chapters => chapters.map(chapter => ChapterConverter.toDto(chapter)));
   }

@@ -40,7 +40,6 @@ export class FanficsService {
   }
 
   public async save(dto: FanficDto, userId: number): Promise<FanficDto> {
-    console.log(dto.genre);
     const entity = FanficConverter.toEntity(dto);
     entity.author = await this.usersService.findById(userId);
     entity.tags = await this.getTags(dto.tags);
