@@ -7,6 +7,7 @@ export class CommentConverter {
     const comment: Comment = new Comment();
     comment.id = dto.id;
     comment.content = dto.content;
+    comment.date = dto.date;
     return comment;
   }
 
@@ -15,6 +16,7 @@ export class CommentConverter {
     dto.id = comment.id;
     dto.author = UserConverter.toDtoNoPass(comment.author);
     dto.content = comment.content;
+    dto.date = comment.date;
     dto.fanficId = comment.fanfic.id;
     return dto;
   }
