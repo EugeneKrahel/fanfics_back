@@ -3,7 +3,6 @@ import { UsersService } from './users.service';
 import { UserDto } from '../dto/user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserNoPassDto } from '../dto/userNoPass.dto';
-import { ChapterDto } from '../dto/chapter.dto';
 
 @Controller('users')
 export class UsersController {
