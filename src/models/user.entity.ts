@@ -18,9 +18,11 @@ export class User {
   role: Role;
   @Column({ type: 'varchar', length: 255, nullable: true })
   key: string;
-  @OneToMany(type => Fanfic, fanfic => fanfic.author, { cascade: ['insert', 'update', 'recover']})
+  @Column({ type: 'boolean', nullable: true })
+  unicornDarkTheme: boolean;
+  @OneToMany(type => Fanfic, fanfic => fanfic.author, { cascade: ['insert', 'update', 'recover'] })
   fanfics: Fanfic[];
-  @OneToMany(type => Comment, comment => comment.author, { cascade: ['insert', 'update', 'recover']})
+  @OneToMany(type => Comment, comment => comment.author, { cascade: ['insert', 'update', 'recover'] })
   comments: Comment[];
 
   @BeforeInsert()

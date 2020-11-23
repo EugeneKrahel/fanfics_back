@@ -43,6 +43,7 @@ export class UsersService {
   public async save(dto: UserDto): Promise<UserDto> {
     const user: User = UserConverter.toEntity(dto);
     user.key = await bcrypt.hash(user.password, 5);
+    user.unicornDarkTheme = false;
     this.mailService.sendmessage(user.email, user.key);
     user.role = Role.USER;
     return await this.repo.save(user)

@@ -11,6 +11,7 @@ export class UserConverter {
     user.email = dto.email;
     user.password = dto.password;
     user.key = dto.key;
+    user.unicornDarkTheme = dto.unicornDarkTheme;
     user.role = dto.role;
     return user;
   };
@@ -22,6 +23,7 @@ export class UserConverter {
     dto.email = user.email;
     dto.password = user.password;
     dto.key = user.key;
+    dto.unicornDarkTheme = user.unicornDarkTheme;
     dto.role = user.role;
     return dto;
   }
@@ -32,6 +34,7 @@ export class UserConverter {
     dto.username = user.username;
     dto.email = user.email;
     dto.key = user.key;
+    dto.unicornDarkTheme = user.unicornDarkTheme;
     dto.role = user.role;
     return dto;
   }

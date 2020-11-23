@@ -9,6 +9,7 @@ export class UserDto {
   password: string;
   role: Role;
   key: string;
+  unicornDarkTheme: boolean;
   fanfics: Fanfic[];
   comments: Comment[];
 }
