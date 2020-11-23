@@ -13,8 +13,8 @@ export class MailService {
         to: `${email}`,
         from: 'ilearningfanfics@gmail.com',
         subject: 'Confirm account',
-        text: `To confirm follow the link: https://fanfics-front.herokuapp.com/confirm/${email}/${confirmKey}`,
-        html: `<p>To confirm follow the link: https://fanfics-front.herokuapp.com/confirm/${email}/${confirmKey}</p>`,
+        text: `To confirm follow the link: https://fanfics-front.herokuapp.com/confirm?email=${email}&token=${confirmKey}`,
+        html: `<p>To confirm follow the link: https://fanfics-front.herokuapp.com/confirm?email=${email}&token=${confirmKey}</p>`,
       })
       .then((data) => {console.log(data);})
       .catch((data) => {console.log(data);});
